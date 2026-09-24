@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>AI Data Analyst</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+</head>
+
+<body>
+
+    <!-- =========================================
+         SIDEBAR
+    ========================================== -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">◈</div>
+
+            <div>
+                <div class="brand-title">
+                    ANALYTICS
+                </div>
+
+                <div class="brand-subtitle">
+                    INTELLIGENCE CONSOLE
+                </div>
+            </div>
+        </div>
+
+
+        <!-- SYSTEM -->
+
+        <div class="side-card">
+
+            <div class="side-title">
+                System
+            </div>
+
+            <div class="side-value">
+                <span class="online-dot"></span>
+                Online
+            </div>
+
+        </div>
+
+
+        <!-- DATABASE -->
+
+        <div class="side-card">
+
+            <div class="side-title">
+                Database
+            </div>
+
+            <div class="side-value">
+                SQLite · Chinook
+            </div>
+
+        </div>
+
+
+        <!-- AI ENGINE -->
+
+        <div class="side-card">
+
+            <div class="side-title">
+                AI Engine
+            </div>
+
+            <div class="side-value">
+                Ollama · Llama 3.1
+            </div>
+
+        </div>
+
+
+        <!-- QUERY LIBRARY -->
+
+        <div class="library-title">
+            QUERY LIBRARY
+        </div>
+
+        <div class="query-library">
+
+            <button
+                class="example-query"
+                data-query="How many customers are there?"
+            >
+                How many customers are there?
+            </button>
+
+            <button
+                class="example-query"
+                data-query="Show total revenue by country"
+            >
+                Show total revenue by country
+            </button>
+
+            <button
+                class="example-query"
+                data-query="Which country has the highest revenue?"
+            >
+                Which country has the highest revenue?
+            </button>
+
+            <button
+                class="example-query"
+                data-query="Show the top 10 customers by spending"
+            >
+                Top 10 customers by spending
+            </button>
+
+            <button
+                class="example-query"
+                data-query="How many tracks are longer than 5 minutes?"
+            >
+                Tracks longer than 5 minutes
+            </button>
+
+        </div>
+
+
+        <!-- RECENT -->
+
+        <div class="library-title recent-title">
+            RECENT QUERIES
+        </div>
+
+        <div id="recentQueries"></div>
+
+    </aside>
+
+
+    <!-- =========================================
+         MAIN
+    ========================================== -->
+
+    <main class="main">
+
+        <!-- HERO -->
+
+        <section class="hero">
+
+            <div class="hero-badge">
+                LOCAL AI ANALYTICS · LLAMA 3.1
+            </div>
+
+            <h1>
+                Data,<br>
+                <span>decoded.</span>
+            </h1>
+
+            <p class="hero-subtitle">
+                Ask questions in plain English.
+                Your AI analyst translates them into SQL,
+                queries the database, validates the result,
+                and turns raw data into clear insights.
+            </p>
+
+
+            <div class="status-bar">
+
+                <span class="status-dot"></span>
+
+                <span>SYSTEM ONLINE</span>
+
+                <span>·</span>
+
+                <span>SQLite connected</span>
+
+                <span>·</span>
+
+                <span>AI agent ready</span>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             QUERY BOX
+        ====================================== -->
+
+        <section class="query-section">
+
+            <div class="query-label">
+                ASK YOUR DATABASE
+            </div>
+
+            <div class="query-heading">
+                What would you like to discover?
+            </div>
+
+
+            <div class="query-row">
+
+                <input
+                    type="text"
+                    id="questionInput"
+                    placeholder="e.g. Show total revenue by country"
+                    autocomplete="off"
+                >
+
+                <button
+                    id="analyzeBtn"
+                    class="analyze-btn"
+                >
+                    <span id="buttonText">
+                        Analyze
+                    </span>
+
+                    <span
+                        id="buttonLoader"
+                        class="button-loader hidden"
+                    ></span>
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             LOADING
+        ====================================== -->
+
+        <section
+            id="loadingSection"
+            class="loading-section hidden"
+        >
+
+            <div class="thinking-animation">
+
+                <div class="thinking-ring"></div>
+
+                <div class="thinking-core">
+                    ◈
+                </div>
+
+            </div>
+
+            <div class="thinking-title">
+                AI ANALYST IS THINKING
+            </div>
+
+            <div class="thinking-text">
+                Generating SQL · Querying database · Validating results
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             ERROR
+        ====================================== -->
+
+        <div
+            id="errorBox"
+            class="error-box hidden"
+        ></div>
+
+
+        <!-- =====================================
+             RESULTS
+        ====================================== -->
+
+        <section
+            id="resultsSection"
+            class="results-section hidden"
+        >
+
+            <div class="section-header">
+                <div>
+                    <div class="section-kicker">
+                        ANALYSIS RESULT
+                    </div>
+
+                    <h2>
+                        Database response
+                    </h2>
+                </div>
+            </div>
+
+
+            <!-- AI INSIGHT -->
+
+            <div class="insight-card">
+
+                <div class="insight-icon">
+                    ✦
+                </div>
+
+                <div>
+
+                    <div class="insight-label">
+                        AI INSIGHT
+                    </div>
+
+                    <div
+                        id="answerText"
+                        class="insight-text"
+                    >
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- KPI -->
+
+            <div class="kpi-grid">
+
+                <div class="kpi-card">
+
+                    <div class="kpi-label">
+                        RESULT
+                    </div>
+
+                    <div
+                        id="resultStatus"
+                        class="kpi-value"
+                    >
+                        ✓
+                    </div>
+
+                </div>
+
+
+                <div class="kpi-card">
+
+                    <div class="kpi-label">
+                        ROWS
+                    </div>
+
+                    <div
+                        id="rowCount"
+                        class="kpi-value"
+                    >
+                        0
+                    </div>
+
+                </div>
+
+
+                <div class="kpi-card">
+
+                    <div class="kpi-label">
+                        COLUMNS
+                    </div>
+
+                    <div
+                        id="columnCount"
+                        class="kpi-value"
+                    >
+                        0
+                    </div>
+
+                </div>
+
+
+                <div class="kpi-card">
+
+                    <div class="kpi-label">
+                        AGENT STEPS
+                    </div>
+
+                    <div
+                        id="stepCount"
+                        class="kpi-value"
+                    >
+                        0
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- TABLE -->
+
+            <div class="section-header table-header">
+
+                <div>
+
+                    <div class="section-kicker">
+                        QUERY RESULTS
+                    </div>
+
+                    <h2>
+                        Data
+                    </h2>
+
+                </div>
+
+                <button
+                    id="downloadBtn"
+                    class="download-btn"
+                >
+                    ↓ Download CSV
+                </button>
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table id="resultTable">
+
+                    <thead id="tableHead"></thead>
+
+                    <tbody id="tableBody"></tbody>
+
+                </table>
+
+            </div>
+
+
+            <!-- CHART -->
+
+            <div
+                id="chartSection"
+                class="chart-section hidden"
+            >
+
+                <div class="section-header">
+
+                    <div>
+
+                        <div class="section-kicker">
+                            VISUALIZATION
+                        </div>
+
+                        <h2>
+                            Data visualization
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="chart-card">
+
+                    <canvas id="resultChart"></canvas>
+
+                </div>
+
+
+                <div
+                    id="chartDetails"
+                    class="chart-details"
+                ></div>
+
+            </div>
+
+
+            <!-- SQL -->
+
+            <div class="sql-section">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <div class="section-kicker">
+                            GENERATED SQL
+                        </div>
+
+                        <h2>
+                            Query
+                        </h2>
+
+                    </div>
+
+                    <button
+                        id="copySqlBtn"
+                        class="copy-btn"
+                    >
+                        Copy SQL
+                    </button>
+
+                </div>
+
+
+                <pre><code id="sqlCode"></code></pre>
+
+            </div>
+
+
+            <!-- DETAILS -->
+
+            <details class="agent-details">
+
+                <summary>
+                    Agent execution details
+                </summary>
+
+                <div class="details-content">
+
+                    <p>
+                        Agent steps:
+                        <strong id="detailsSteps">
+                            0
+                        </strong>
+                    </p>
+
+                    <p>
+                        Database:
+                        <strong>
+                            SQLite · Chinook
+                        </strong>
+                    </p>
+
+                    <p>
+                        AI Engine:
+                        <strong>
+                            Ollama · Llama 3.1
+                        </strong>
+                    </p>
+
+                </div>
+
+            </details>
+
+        </section>
+
+
+        <!-- =====================================
+             FOOTER
+        ====================================== -->
+
+        <footer>
+
+            AI DATA ANALYST · LOCAL INTELLIGENCE CONSOLE
+
+            <span>·</span>
+
+            SQLite · Ollama · Llama 3.1 · FastAPI
+
+        </footer>
+
+    </main>
+
+
+    <!-- CHART.JS -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/chart.js"
+    ></script>
+
+
+    <!-- APPLICATION JS -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
